@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="icon" href="images/dumbways.png">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav>
+        <div class="struc-nav">
+            <div class="nav-left">
+                <a href="https://dumbways.id/">
+                    <img src="images/dumbways.png" alt="">
+                </a> 
+                <ul>
+                    <li><h3><a href="index.html">Home</a></h3></li>
+                    <li><a href="my-project.html">My Project</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="contact.html">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <form >
+        <h1>GET IN  TOUCH</h1>
+        <br>
+        <div class="form">
+            <label for="name">Name</label>
+            <br>
+            <input type="text" placeholder="Masukkan nama anda " name="name" id="name">
+            <br>
+            <label for="email">Email</label>
+            <br>
+            <input type="text" placeholder="Masukkan email anda" id="email" name="email">
+            <br>
+            <label for="no">Phone Number</label>
+            <br>
+            <input type="text" placeholder="Masukkan no.Hp anda" id="no" name="no">
+            <br>
+            <label for="sub">Subject</label>
+            <br>
+            <select name="sub" id="sub">
+                <option value="select" hidden>select</option>
+                <option>Frontend Develop</option>
+                <option>Backend Develop</option>
+                <option>Cyber Security</option>
+                <option>Mobile Develop</option>
+            </select>
+            <br>
+            <label for="message">Your Message</label>
+            <br>
+            <textarea name="message" placeholder="Masukkan deskripsi" id="message" cols="30" rows="10"></textarea>
+            <br>
+            <button type="button" onclick="contactFrom()">Submit</button>
+        </div>
+    </form>
+    <script src="js/contact.js"></script>
+</body>
+</html>
