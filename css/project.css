@@ -320,8 +320,8 @@ form  button:hover {
   }
 
   @media only screen and(max-width : 390px) {
-    .project-card {
-      width: 300px;
+    .card-struct {
+      width: fit-content;
     }
   }
   
