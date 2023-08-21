@@ -323,6 +323,12 @@ form  button:hover {
     .project-card {
       width: fit-content;
     }
+
+    .data-container {
+      width: 250px;
+      padding: 0;
+      padding-top: 20px;
+    }
   }
   
  
