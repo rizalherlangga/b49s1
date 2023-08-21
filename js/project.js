@@ -125,7 +125,8 @@ function renderProject() {
     for (let index = 0; index < projectData.length; index++) {
        
         html += `
-          <div class="project-card" style="width: fit-content">
+        <div id="kartu-t" class="kartu-t">
+          <div class="project-card">
           <img src="${projectData[index].projectImage}"style="height: 350px" alt="1"/>
           <a href="project-detail.html" style="color: black ; text-decoration: none">
               <h4>${projectData[index].projectName}</h4>
@@ -143,6 +144,7 @@ function renderProject() {
               <button class="delete-button">Delete</button>
           </div>
           </div>
+        </div>
         `;
           
     }
