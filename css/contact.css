@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
+body {
+    background-color: #DCE0E4;
+
+}
+
+
+
+form {
+    width: 850px;
+    margin: auto ;
+    padding-top: 50px;
+    padding-bottom: 50px;
+} 
+
+ h1 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+}
+
+input {
+    width: 827px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0px 5px 5px;
+}
+
+select {
+    width: 850px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0px 5px 5px;
+}
+
+textarea {
+    width: 829px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px; 
+    resize: none; 
+    box-shadow: 0px 5px 5px;
+}
+
+form  button {
+    display: flex;
+    justify-content: end;
+    margin-left: 768px;
+    border: none;
+    background-color: #111727;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+form  button:hover {
+    background-color: orangered;
+}
+
+@media only screen and (max-width: 875px) {
+    form {
+      width: 600px;
+    }
+
+    input {
+      width: 580px;
+    }
+
+    select {
+        width: 600px;
+    }
+
+    textarea {
+      width: 580px;
+    }
+    
+    form  button {
+      margin-left: 518px;
+    }
+
+  }
+  @media only screen and (max-width: 650px) {
+    form {
+      width: 350px;
+    }
+
+    input {
+      width: 320px;
+    }
+
+    select {
+        width: 340px;
+    }
+
+    textarea {
+      width: 320px;
+    }
+    
+    form  button {
+      margin-left: 260px;
+    }
+   
+
+  }
+

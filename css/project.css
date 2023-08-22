@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
+
+body {
+    background-color: #DCE0E4;
+}
+
+form {
+    width: 850px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+form > h1 {
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type=text] {
+    width: 830px;
+    height: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px;
+}
+
+.date {
+    width: 100%;
+    display: flex;
+}
+
+input[type=date] {
+    width: 400px;
+    height: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px;
+    background-color: white;
+}
+
+.start {
+    margin-right: 10px;
+}
+
+textarea {
+    width: 830px;
+    resize: none;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px;
+    background-color: white;
+}
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+input[type=file] {
+    width: 830px;
+    height: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px;
+    background-color: white;
+}
+
+label[for=react] {
+  font-size: 30px;
+  margin-right: 18px;
+  font-family: 'Poppins', sans-serif;
+}
+
+label[for=go] {
+  font-size: 30px;
+  margin-right: 60px;
+  font-family: 'Poppins', sans-serif;
+}
+
+label[for=bootstrap] {
+  font-size: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+label[for=js] {
+  font-size: 30px;
+  margin-right: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+label {
+    font-size: 35px;
+    font-family: 'Poppins', sans-serif;
+}
+
+form > button {
+    display: flex;
+    justify-content: end;
+    margin-left: 768px;
+    border: none;
+    background-color: #111727;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+form  button:hover {
+    background-color: orangered;
+}
+
+/* section {
+    background-color: white;
+} */
+
+.data {
+    width: 100%;
+    background-color: #f8f8f8;
+  }
+  
+  .data-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+  }
+  
+  .data-container > h1 {
+    text-align: center;
+  }
+  
+  .kartu-t {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+    justify-items: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
+  
+  .project-card {
+    background-color: #ffffff;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px #cbcbcb;
+    padding: 15px;
+  }
+  .project-card > img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 7px;
+  }
+  
+  .project-card h5 a {
+    color: black;
+  }
+  .project-card p {
+    margin-bottom: 13px;
+  }
+  
+  .gambar {
+    margin-bottom: 10px;
+  }
+  
+  .gambar i {
+    font-size: 25px;
+    width: 50px;
+  }
+
+  .ini-data {
+    width: 100%;
+  }
+  
+  .ini-data button {
+    width: 49%;
+    background-color:  #111727;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .ini-data  button:hover {
+    background-color: orangered;
+  }
+  
+
+  @media only screen and (max-width: 875px) {
+    form {
+      width: 600px;
+    }
+
+    input[type=text] {
+      width: 580px;
+    }
+
+   input[type=date] {
+     width: 275px;
+    }
+
+    textarea {
+      width: 580px;
+    }
+    
+    
+    input[type=file] {
+      width: 580px;
+    
+    }
+    
+    form > button {
+      margin-left: 518px;
+    }
+    
+    .data-container {
+      width: 600px;
+    }
+    
+    .kartu-t {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+  }
+  @media only screen and (max-width: 650px) {
+    form {
+      width: 350px;
+    }
+
+    input[type=text] {
+      width: 320px;
+    }
+
+   input[type=date] {
+     width: 145px;
+    }
+
+    textarea {
+      width: 320px;
+    }
+
+    input[type=checkbox] {
+      width: 30px;
+    }
+    
+    
+    input[type=file] {
+      width: 320px;
+    
+    }
+    
+    form > button {
+      margin-left: 268px;
+    }
+    
+    .data-container {
+      width: 350px;
+      padding: 0;
+      padding-top: 40px;
+    }
+    
+    .kartu-t {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      width: 100%;
+    }
+
+    .project-card {
+      width: fit-content;
+    }
+
+    label{
+      font-size: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    label[for=react] {
+      font-size: 20px;
+      margin-right: 18px;
+  
+    }
+    
+    label[for=go] {
+      font-size: 20px;
+      margin-right: 49px;
+     
+    }
+    
+    label[for=bootstrap] {
+      font-size: 20px;
+    }
+    
+    label[for=js] {
+      font-size: 20px;
+      margin-right: 14px;
+     
+    
+    }
+
+    form > h1 {
+      font-size: 30px;
+    }
+  }
+
+  @media only screen and(max-width : 390px) {
+    .project-card {
+      width: fit-content;
+    }
+
+    .data-container {
+      width: 100%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  
+ 
+
+
