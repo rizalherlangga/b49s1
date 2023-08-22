@@ -56,7 +56,7 @@ allTestimonial()
 function filterData(rating) {
     let filterDataHTML = ""
 
-    const filterTestimonial = testimonialData.filter((card) => {
+    const  filterTestimonial = testimonialData.filter((card) => {
         return card.rating === rating
     })
 
