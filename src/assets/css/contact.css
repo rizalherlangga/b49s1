@@ -1,0 +1,19 @@
+.utama {
+  background-color: #e3e7eb !important;
+}
+
+textarea {
+  resize: none !important;
+}
+
+@media (max-width: 767.98px) {
+  form {
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .w-50 {
+    width: 95% !important;
+  }
+}
