@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
+.data {
+  background-color: #e3e7eb !important;
+  margin-top: -10px !important;
+}
+.container-form {
+  margin: 10px auto !important;
+}
+
+input,
+textarea {
+  width: 100% !important;
+  border-radius: 10px !important;
+  border: none !important;
+
+  padding: 10px !important;
+}
+
+textarea {
+  height: 150px !important;
+  resize: none !important;
+}
+
+#input-start,
+#input-end {
+  width: 100% !important;
+}
+
+@media (max-width: 767.98px) {
+  .w-75 {
+    padding: 40px 10px !important;
+  }
+}
