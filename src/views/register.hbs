@@ -3,22 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonials</title>
-     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="nav.css" />
-    <link rel="stylesheet" href="contact.css" />
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/nav.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
             <a class="navbar-brand" href="https://dumbways.id/" target="_blank"
             ><img src="/images/brandred.png" alt="dumbways" width="50px"
@@ -84,74 +75,26 @@
             </div>
       </div>
     </nav>
-    <div class="utama contaier p-5">
-      <form class="m-auto w-50">
-        <h1 class="text-center mb-5">GET IN TOUCH</h1>
-        <div>
-          <label for="input-name">Name</label>
-          <input
-            id="input-name"
-            class="d-block w-100 border-0 rounded-2 p-2 mb-3 mt-2"
-            type="text"
-            placeholder="Masukkan Nama Anda"
-          />
-        </div>
-        <div>
-          <label for="input-email">Email</label>
-          <input
-            id="input-email"
-            type="email"
-            placeholder="Masukkan Alamat Email Anda"
-            class="d-block w-100 border-0 rounded-2 p-2 mb-3 mt-2"
-          />
-        </div>
-        <div>
-          <label for="input-no">Phone</label>
-          <input
-            id="input-no"
-            type="number"
-            placeholder="Masukkan No.Hp Anda"
-            class="d-block w-100 border-0 rounded-2 p-2 mb-3 mt-2"
-          />
-        </div>
-        <div>
-          <label for="subjek">Subject</label>
-          <select
-            id="subjek"
-            class="d-block w-100 border-0 rounded-2 p-2 bg-white mb-3 mt-2"
-          >
-            <option value="" hidden>Select</option>
-            <option>Frontend</option>
-            <option>Backend</option>
-            <option>Fullstack</option>
-          </select>
-        </div>
-        <div>
-          <label for="message">Your message</label>
-          <textarea
-            id="message"
-            rows="5"
-            cols="10"
-            placeholder="Masukkan Pesan Anda"
-            class="d-block w-100 border-0 rounded-2 p-2 mb-3 mt-2"
-          ></textarea>
-        </div>
-        <div class="w-100 justify-content-end d-flex">
-          <button
-            type="button"
-            onclick="submitData() "
-            class="border-0 rounded-2 p-2 bg-dark text-white"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+
+    <div class="container d-flex justify-content-center">
+      <div class="w-50">
+        <h3 class="text-center mt-5">REGISTER</h3>
+        <form action="/register" method="POST">
+          <div class="mb-3">
+            <label for="username" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="username" aria-describedby="emailHelp" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" />
+          </div>
+          <button type="submit" class="btn btn-danger mt-3 px-5">Submit</button>
+        </form>
+      </div>
     </div>
-    <script src="js/contact.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script>
 </body>
 </html>

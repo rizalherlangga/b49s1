@@ -2,10 +2,10 @@
 
 .data {
   background-color: #e3e7eb !important;
-  margin-top: -10px !important;
+  /* margin-top: -10px !important; */
 }
 .container-form {
-  margin: 10px auto !important;
+  margin: 0px auto !important;
 }
 
 input,

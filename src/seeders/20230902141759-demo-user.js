@@ -12,17 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
-    await queryInterface.bulkInsert('Projets', [{
-      name: 'New Song JKT 48',
-      start: '2023-04-03',
-      end: '2023-04-03',
-      description: 'Lagu terbaru JKT 48 dengan judul Ponytail and Shu Shu, yang dicenter rin oleh 2 member Gen-7 yaitu Zee dan Christy',
-      technologies:["js", "boostrap", "golang", "react"],
-      image: 'jkt48.png',
+    await queryInterface.bulkInsert('Users', [{
+      name: 'rizal',
+      email:'rizal@gmail.com',
+      password: 'kisutp21',
       createdAt: new Date(),
       updatedAt: new Date()
-    }], {})
+    }])
   },
 
   async down (queryInterface, Sequelize) {
@@ -32,7 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-
-    await queryInterface.bulkDelete('Projets', null, {})
+    await queryInterface.bulkDelete('Users', null, {})
   }
 };
