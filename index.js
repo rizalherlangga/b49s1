@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
 const flash = require('express-flash')
+const upload = require('./src/middelwares/uploadFiles')
 
 //sequelize init
 const config = require('./src/config/config.json')
@@ -19,6 +20,7 @@ app.set('views', path.join(__dirname ,'src/views'))
 
 // set serving stattic file
 app.use(express.static('src/assets'))
+app.use(express.static('src/uploads'))
 app.use(express.static('src/assets/css'))
 
 //parsing data from client
@@ -54,8 +56,8 @@ app.get("/logout", logout)
 
 app.post("/register", addUser)
 app.post("/login", userLogin)
-app.post("/edit-project/:id", handleUpdate)
-app.post("/project", addProject)
+app.post("/edit-project/:id", upload.single('image'), handleUpdate)
+app.post("/project", upload.single('image'), addProject)
 
 
 app.listen(port, () => {
@@ -63,35 +65,56 @@ app.listen(port, () => {
 })
 
 
-async function home (req, res) {
+async function home(req, res) {
     try {
-        const query = `SELECT id, name, start, "end", description, technologies, image, 
-        "createdAt", "updatedAt" FROM "Projets";`
-        let obj = await sequelize.query(query, {type: QueryTypes.SELECT})
-        const data = obj.map(res => ({
-            ...res,
-            differenceInDay : duration(res.start, res.end),
-            technologies: {
-                js: res.technologies.includes('js'),
-                boostrap: res.technologies.includes('boostrap'),
-                golang: res.technologies.includes('golang'),
-                react: res.technologies.includes('react'),
-              },
-              isLogin: req.session.isLogin
-        }))
-        res.render('index', {dataDefault: data, isLogin: req.session.isLogin,
-            user: req.session.user})
+      if (req.session.isLogin && req.session.idUser) {
+        // Jika pengguna sudah login, ambil proyek yang dibuat oleh pengguna yang login
+        const query = `
+          SELECT "Projets".id, "Projets".name, start, "end", description, technologies, image, 
+          "Projets"."createdAt", "Projets"."updatedAt", "Users".name AS user_name 
+          FROM "Projets" 
+          LEFT JOIN "Users" ON "Projets".user_id = "Users".id
+          WHERE "Projets".user_id = ${req.session.idUser}`;
+        
+        const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+        const data = obj.map((res) => ({
+          ...res,
+          differenceInDay: duration(res.start, res.end),
+          technologies: {
+            js: res.technologies.includes('js'),
+            boostrap: res.technologies.includes('boostrap'),
+            golang: res.technologies.includes('golang'),
+            react: res.technologies.includes('react'),
+          },
+          isLogin: req.session.isLogin,
+          idUser: req.session.idUser,
+        }));
+        res.render('index', {
+          dataDefault: data,
+          isLogin: req.session.isLogin,
+          user: req.session.user,
+        });
+      } else {
+        // Handle jika pengguna belum login
+        res.render('index', {
+          dataDefault: [],
+          isLogin: req.session.isLogin,
+          user: req.session.user,
+        });
+      }
     } catch (error) {
-
+      console.log(error);
     }
-}
+  }
+  
 
 function project (req, res) {
     if(!req.session.isLogin) {
         res.redirect('/')
         return
     }
-    res.render('project')
+    res.render('project', {isLogin: req.session.isLogin,
+        user: req.session.user})
 }
 
 function duration (start, end) {
@@ -128,7 +151,7 @@ async function addProject (req, res) {
     }
 
 try {
-        var {tittle, start, end, description, image} = req.body
+        var {tittle, start, end, description} = req.body
         const differenceInDay =  duration(start, end) 
         const technologies = {
             js: req.body.js !== undefined,
@@ -136,6 +159,8 @@ try {
             golang: req.body.golang !== undefined,
             react: req.body.react !== undefined,
         }
+        const author = req.session.idUser
+        const image = req.file.filename
     
         const isiData = {
             tittle,
@@ -144,17 +169,18 @@ try {
             differenceInDay,
             description,
             selectedTechnologies:  Object.keys(technologies).filter(key => technologies[key]),
-            image
+            image,
+            author
         }
         
         console.log(isiData);
         await sequelize.query(`
         INSERT INTO "Projets"(
-            name, start, "end", description, technologies, image, "createdAt", "updatedAt"
+            name, start, "end", description, technologies, image, "createdAt", "updatedAt", user_id
         ) VALUES (
             '${isiData.tittle}', '${isiData.start}', '${isiData.end}', '${isiData.description}',
             ARRAY[${isiData.selectedTechnologies.map(tech => `'${tech}'`).join(', ')}]::VARCHAR[],
-            '${isiData.image}', NOW(), NOW()
+            '${isiData.image}', NOW(), NOW(), '${isiData.author}'
         );
     `);
     
@@ -182,28 +208,32 @@ async function displayEditForm(req, res) {
         }
 
         // Render halaman edit dengan data proyek
-        res.render('edit-project', { dataDefault: project });
+        res.render('edit-project', { dataDefault: project, isLogin: req.session.isLogin,
+            user: req.session.user });
     } catch (error) {
         // Tangani error
+        console.log(error);
     }
 }
 
 async function handleUpdate(req, res) {
-    if(!req.session.isLogin) {
-        res.redirect('/')
-        return
+    if (!req.session.isLogin) {
+        res.redirect('/');
+        return;
     }
 
     try {
         const projectId = req.params.id;
-        const { title, start, end, description, image } = req.body;
+        const { title, start, end, description } = req.body;
         const differenceInDay = duration(start, end);
         const technologies = {
             js: req.body.js !== undefined,
             boostrap: req.body.boostrap !== undefined,
             golang: req.body.golang !== undefined,
             react: req.body.react !== undefined,
-        }
+        };
+
+        const image = req.file.filename; // Pindahkan deklarasi variabel image ke sini
 
         const isiData = {
             title,
@@ -213,7 +243,7 @@ async function handleUpdate(req, res) {
             description,
             selectedTechnologies: Object.keys(technologies).filter(key => technologies[key]),
             image
-        }
+        };
 
         const updateQuery = `
             UPDATE "Projets" SET
@@ -221,7 +251,8 @@ async function handleUpdate(req, res) {
             start = '${isiData.start}',
             "end" = '${isiData.end}',
             description = '${isiData.description}',
-            technologies = ARRAY[${isiData.selectedTechnologies.map(tech => `'${tech}'`).join(', ')}]::VARCHAR[]
+            technologies = ARRAY[${isiData.selectedTechnologies.map(tech => `'${tech}'`).join(', ')}]::VARCHAR[],
+            image = '${isiData.image}'
             WHERE id = ${projectId};
         `;
 
@@ -230,8 +261,10 @@ async function handleUpdate(req, res) {
         res.redirect("/"); // Redirect ke halaman utama setelah pembaruan berhasil
     } catch (error) {
         // Tangani error
+        console.log(error);
     }
 }
+
 
 
 async function deleteProject (req, res) {
@@ -252,33 +285,78 @@ async function deleteProject (req, res) {
       }
 }
 
-async function projectDetail (req, res) {
-    try {
-        const {id} = req.params
+// async function projectDetail (req, res) {
+//     if(!req.session.isLogin) {
+//         res.redirect('/')
+//         return
+//     }
+//     try {
+//         const {id} = req.params
 
-        const query = `SELECT * FROM "Projets" WHERE id=${id};`
-        let obj = await sequelize.query(query, {type: QueryTypes.SELECT})
-        const data = obj.map(res => ({
+//         const query = `SELECT "Projets".id, "Projets".name, start, "end", description, technologies, image, 
+//         "Projets"."createdAt", "Projets"."updatedAt", "Users".name AS user_id FROM "Projets" LEFT JOIN "Users" ON "Projets".user_id = "Users".id WHERE "Projets".id=${id};`
+//         let obj = await sequelize.query(query, {type: QueryTypes.SELECT})
+//         const data = obj.map(res => ({
+//             ...res,
+//             differenceInDay : duration(res.start, res.end),
+//             technologies: {
+//                 js: res.technologies.includes('js'),
+//                 boostrap: res.technologies.includes('boostrap'),
+//                 golang: res.technologies.includes('golang'),
+//                 react: res.technologies.includes('react'),
+//             }
+//         }))
+//         res.render('project-detail', {dataDefault:data[0], isLogin: req.session.isLogin,
+//             user: req.session.user})
+//     } catch (error) {
+//         console.log(error);
+//     }
+
+// }
+async function projectDetail(req, res) {
+    if (!req.session.isLogin) {
+        res.redirect('/');
+        return;
+    }
+    try {
+        const { id } = req.params;
+
+        const query = `
+        SELECT "Projets".id, "Projets".name, start, "end", description, technologies, image, 
+        "Projets"."createdAt", "Projets"."updatedAt", "Users".name AS user_id 
+        FROM "Projets" 
+        LEFT JOIN "Users" ON "Projets".user_id = "Users".id 
+        WHERE "Projets"."id" = ${id};
+        `;
+
+        let obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+        const data = obj.map((res) => ({
             ...res,
-            differenceInDay : duration(res.start, res.end),
+            differenceInDay: duration(res.start, res.end),
             technologies: {
                 js: res.technologies.includes('js'),
                 boostrap: res.technologies.includes('boostrap'),
                 golang: res.technologies.includes('golang'),
                 react: res.technologies.includes('react'),
             }
-        }))
-        res.render('project-detail', {dataDefault:data[0]})
+        }));
+        res.render('project-detail', {
+            dataDefault: data[0],
+            isLogin: req.session.isLogin,
+            user: req.session.user
+        });
     } catch (error) {
-
+        console.log(error);
     }
-
 }
+
 function testimonial (req, res) {
-    res.render('testimonial')
+    res.render('testimonial', {isLogin: req.session.isLogin,
+        user: req.session.user})
 }
 function contact (req, res) {
-    res.render('contact')
+    res.render('contact', {isLogin: req.session.isLogin,
+        user: req.session.user})
 }
 
 function login (req, res) {
@@ -287,7 +365,8 @@ function login (req, res) {
         return
     }
 
-    res.render('login')
+    res.render('login', {isLogin: req.session.isLogin,
+        user: req.session.user})
 }
 async function userLogin (req, res) {
     if(req.session.isLogin) {
@@ -311,6 +390,7 @@ async function userLogin (req, res) {
                 return res.redirect('/login')
             }else{
                 req.session.isLogin = true
+                req.session.idUser = obj[0].id
                 req.session.user = obj[0].name
                 req.flash('succes', "login succes")
                 res.redirect('/')
@@ -326,7 +406,8 @@ function register (req, res) {
         return
     }
 
-    res.render('register')
+    res.render('register', {isLogin: req.session.isLogin,
+        user: req.session.user})
 }
 async function addUser(req, res) {
     if(req.session.isLogin) {
@@ -345,7 +426,7 @@ async function addUser(req, res) {
             res.redirect('login')
         })
     }catch(error) {
-
+        console.log(error);
     }
 }
 

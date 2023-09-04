@@ -174,11 +174,12 @@
       <h1 class="project text-center mt-3">My Projects</h1>
         {{#each dataDefault}}
       <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
-          <div class="card mt-3 shadow p-2 bg-body-tertiary rounded" style="width: 18rem; height: 500px">
+        {{#if idUser}}
+          <div class="card mt-3 shadow p-2 bg-body-tertiary rounded" style="width: 20rem; height: 500px">
             <img
               class="img-fluid w-100 object-fit-cover border rounded"
               style="height: 200px"
-              src="images/1.jpeg"
+              src="{{this.image}}"
               alt="bmth"
             />
             <h4 class="mt-2">
@@ -187,7 +188,7 @@
                 href="/project-detail/{{this.id}}"
               >{{this.name}}</a>
             </h4>
-            <p class="mt-1">durasi : {{this.differenceInDay}}</p>
+            <p class="mt-1">durasi : {{this.differenceInDay}} | {{this.user_name}}</p>
             <p style="height: 100px;">
               {{this.description}}
             </p>
@@ -231,6 +232,7 @@
             </div>
             {{/if}}
           </div>
+        {{/if}}
       </div>
         {{/each}}
     
